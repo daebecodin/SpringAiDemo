@@ -21,19 +21,27 @@ public class ImageService {
 
     /**
      *
-     * @param imageRequest is the request image the user queries
-     * @return we return a temp url leading us to the image received
+     * @param imageRequest out image request prompt
+     * @param quality quality of image
+     * @param n number of images
+     * @param height image height
+     * @param width image width
+     * @return temp url of image
      */
-    public ImageResponse getImageResponse(String imageRequest) {
-         ImageResponse response = openAiImageModel.call(
-                 new ImagePrompt(
+    public ImageResponse getImageResponse(String imageRequest,
+                                          String quality,
+                                          Integer n,
+                                          Integer height,
+                                          Integer width) {
+         ImageResponse response = openAiImageModel.call( // our response is the models call function provided with our image options
+                 new ImagePrompt( // class representation of our prompt
                          imageRequest,
                          OpenAiImageOptions.builder()
 //                                 .model("dall-e-2") // model
-                                 .quality("hd") // image quality
-                                 .N(1) // generated amount
-                                 .height(1024) // height
-                                 .width(1024) // width
+                                 .quality(quality) // image quality
+                                 .N(n) // generated amount
+                                 .height(height) // height
+                                 .width(width) // width
                                  // many more options
                                  // try them out
                                  .build()

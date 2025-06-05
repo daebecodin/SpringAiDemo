@@ -19,12 +19,22 @@ public class ImageController {
     }
 
     @GetMapping(value = "get-image")
-    public List<String> getImageResponse(@RequestParam String imageRequest) {
-        ImageResponse imageResponse =  imageService.getImageResponse(imageRequest);
+    public List<String> getImageResponse(@RequestParam String imageRequest,
+                                         @RequestParam() String quality,
+                                         @RequestParam() Integer n,
+                                         @RequestParam() Integer height,
+                                         @RequestParam() Integer width) {
+        // passing in query values to thr service method
+        ImageResponse imageResponse =  imageService.getImageResponse(
+                imageRequest,
+                quality, n,
+                height,
+                width
+        );
 
-        List<String> results = imageResponse.getResults().stream()
-                .map(result -> result.getOutput().getUrl())
-                .toList();
+        List<String> results = imageResponse.getResults().stream() //retrieve results
+                .map(result -> result.getOutput().getUrl()) // map results -> for each result get output and url
+                .toList(); // add all results to a list
 
         return results;
     }
