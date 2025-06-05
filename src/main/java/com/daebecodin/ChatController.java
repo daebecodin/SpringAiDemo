@@ -20,10 +20,24 @@ public class ChatController {
         this.chatService = chatService;
     }
 
-    //method to call from the service
+    /**
+     *
+     * @param message is to be passed to the service as the prompt
+     * @return we return the model's response to the message
+     */
     @GetMapping(value = "ask")
     public String getResponse(@RequestParam String message) {
         return chatService.getResponse(message);
+    }
+
+    /**
+     *
+     * @param message is to be passed to the service as the prompt
+     * @return we return the model's response to the message
+     */
+    @GetMapping(value = "ask-options")
+    public String getResponseOptions(@RequestParam String message) {
+        return chatService.getResponseOptions(message);
     }
 
 }

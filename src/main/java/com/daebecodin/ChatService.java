@@ -29,4 +29,22 @@ public class ChatService {
         return chatModel.call(message);
     }
 
+
+    public String getResponseOptions(String message) {
+        ChatResponse response = chatModel.call( // creating a ChatResponse Object to use the cat model call function
+                new Prompt(
+                        message, // the prompt takes in the prompt message for the model
+                        OpenAiChatOptions.builder() // and chat options
+                                .model("gpt-4o") // model you want to use
+                                .temperature(0.4) // randomness of the response
+                                // comes with a bunch of other options to customize output.
+                                // go back anc check them out
+                                .build()
+                )
+        );
+        return response.getResult().getOutput().getText();
+    }
+
+
+
    }
