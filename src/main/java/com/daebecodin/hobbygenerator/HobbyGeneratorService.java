@@ -1,9 +1,11 @@
 package com.daebecodin.hobbygenerator;
 
 
+import jakarta.annotation.Resource;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -15,6 +17,7 @@ public class HobbyGeneratorService {
      * Instance of ChatModel
      */
     private final ChatModel chatModel;
+
 
     public HobbyGeneratorService(ChatModel chatModel) {
         this.chatModel = chatModel;
@@ -31,6 +34,8 @@ public class HobbyGeneratorService {
                                    String goals,
                                    String session
     ) {
+
+        // how to pass default system message using a multi line string
         String template = """
                 You are an expert assistant. Take a deep breath and think step by step.
                 

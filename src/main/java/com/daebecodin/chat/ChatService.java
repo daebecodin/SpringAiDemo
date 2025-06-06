@@ -1,5 +1,6 @@
 package com.daebecodin.chat;
 
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -14,10 +15,12 @@ import org.springframework.stereotype.Service;
 public class ChatService {
 
     private final ChatModel chatModel; //instantiating the chatModel class
+    private final ChatClient chatClient;
 
     // injecting the chatModel class
-    public ChatService(ChatModel chatModel) {
+    public ChatService(ChatModel chatModel, ChatClient.Builder chatClient) {
         this.chatModel = chatModel;
+        this.chatClient = chatClient.build();
     }
 
     /**
@@ -38,11 +41,20 @@ public class ChatService {
                                 .model("gpt-4o") // model you want to use
                                 .temperature(0.4) // randomness of the response
                                 // comes with a bunch of other options to customize output.
-                                // go back anc check them out
+                                // go back and check them out
                                 .build()
                 )
         );
         return response.getResult().getOutput().getText(  );
+    }
+
+    public ChatResponse chatClientGeneration(String prompt) {
+        ChatResponse chatResponse = chatClient.prompt() // invoking prompt, ready to receive input
+                .user(prompt) // invoking user, specifies the users input
+                .call() //invoking call, completes prompt and submits to model
+                .chatResponse();
+
+        return chatResponse;
     }
 
 
