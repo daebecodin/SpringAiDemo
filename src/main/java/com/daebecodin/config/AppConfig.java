@@ -21,5 +21,7 @@ public class AppConfig {
         // return our system prompt
     }
 
+    // defining a ChatClient bean
+
     // you can also configure specific ChatClient beans for specific ai models
 }
