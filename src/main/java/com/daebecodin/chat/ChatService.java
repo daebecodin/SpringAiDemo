@@ -42,7 +42,7 @@ public class ChatService {
                                 .build()
                 )
         );
-        return response.getResult().getOutput().getText();
+        return response.getResult().getOutput().getText(  );
     }
 
 
